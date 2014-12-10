@@ -38,6 +38,7 @@ class DeviceViewSetMixin(object):
     def pre_save(self, obj):
         # Set the requesting user as the device user
         obj.user = self.request.user
+        APNSDevice.objects.filter(user=self.request.user).delete()
 
 
 class APNSDeviceViewSet(DeviceViewSetMixin, viewsets.ModelViewSet):
